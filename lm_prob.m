@@ -47,5 +47,27 @@ function logProb = lm_prob(sentence, LM, type, delta, vocabSize)
   words = strsplit(' ', sentence);
 
   % TODO: the student implements the following
+  ps = 1;
+  count = 0;
+  total = 0; 
+  for w=1:length(words)-1
+      w1 = words{w};
+      w2 = words{w+1};
+      if isfield(LM.bi, (w1))
+        total = LM.uni.(w1) + delta * vocabSize;
+        if isfield(LM.bi.(w1), (w2))
+            count = LM.bi.(w1).(w2) + delta;
+        else
+            count = delta;
+        end
+      else
+          total = delta * vocabSize;
+          count = delta;
+      end
+      ps = ps * (count/total);
+  end
+  if ps > 0
+      logProb = log2(ps);
+  end
   % TODO: once upon a time there was a curmudgeonly orangutan named Jub-Jub.
 return
