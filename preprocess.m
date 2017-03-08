@@ -31,14 +31,13 @@ function outSentence = preprocess(inSentence, language )
   % perform language-agnostic changes
   % TODO: your code here
   %    e.g., outSentence = regexprep( outSentence, 'TODO', 'TODO');
-  outSentence = regexprep(outSentence, '(\w|\d)\. ', '$1 \. ');
-  outSentence = regexprep(outSentence,'([,;:\(\)=\+<>"])',' $1 ');
+  outSentence = regexprep(outSentence, '(\w|\d)\. SENTEND', '$1 \. SENTEND');
+  outSentence = regexprep(outSentence,'([,;!\?\$:\(\)=\+<>"])',' $1 ');
   outSentence = regexprep(outSentence,'(\d)-(\d)','$1 - $2');
   outSentence = regexprep(outSentence,'(\s)(\-)+',' $2 ');
   outSentence = regexprep(outSentence,'(\-)+(\s)',' $1 ');
   outSentence = regexprep(outSentence,'\s''(\w)',' '' $1');
   outSentence = regexprep(outSentence,'(\w)''\s','$1 '' ');
-  outSentence = regexprep(outSentence,'(\w|\d) \. (\d|\w)','$1. $2');
   switch language
    case 'e'
    outSentence = regexprep(outSentence,'(\w)''(\w)','$1 ''$2');
