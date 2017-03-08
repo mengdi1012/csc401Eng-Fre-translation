@@ -48,25 +48,25 @@ for iFile=1:length(DD)
 
     processedLine =  preprocess(lines{l}, language);
     words = strsplit(' ', processedLine );
-    %disp(words);
+
     % TODO: THE STUDENT IMPLEMENTS THE FOLLOWING
     for w=1:length(words)
-        w1 = words{w};
-        %unigram parts
-        if isfield(LM.uni, w1)
-            LM.uni.(w1) = LM.uni.(w1) + 1;
+      w1 = words{w};
+      %unigram parts
+      if isfield(LM.uni, w1)
+        LM.uni.(w1) = LM.uni.(w1) + 1;
+      else
+        LM.uni.(w1) = 1;
+      end
+      %bigram parts
+      if w>1
+        w0 = words{w-1};
+        if isfield(LM.bi, (w0)) && isfield(LM.bi.(w0), (w1))
+          LM.bi.(w0).(w1) = LM.bi.(w0).(w1) + 1;
         else
-            LM.uni.(w1) = 1;
+          LM.bi.(w0).(w1) = 1;      
         end
-        %bigram parts
-        if w>1
-            w0 = words{w-1};
-            if isfield(LM.bi, (w0)) && isfield(LM.bi.(w0), (w1))
-               LM.bi.(w0).(w1) = LM.bi.(w0).(w1) + 1;
-            else
-               LM.bi.(w0).(w1) = 1;      
-            end
-        end
+      end
     end
     % TODO: THE STUDENT IMPLEMENTED THE PRECEDING
   end

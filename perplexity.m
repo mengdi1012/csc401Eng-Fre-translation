@@ -24,12 +24,11 @@ pp        = 0;
 N         = 0;
 vocabSize = length(fields(LM.uni));
 
-for iFile=1:length(DD)
+for iFile=1: length(DD)
 
   lines = textread([testDir, filesep, DD(iFile).name], '%s','delimiter','\n');
 
   for l=1:length(lines)
-
     processedLine = preprocess(lines{l}, language);
     tpp = lm_prob( processedLine, LM, type, delta, vocabSize );
     if (tpp > -Inf)   % only consider sentences that have some probability 

@@ -35,7 +35,7 @@ function logProb = lm_prob(sentence, LM, type, delta, vocabSize)
       disp( 'lm_prob: if you specify smoothing, you need all 5 parameters');
       return;
     end
-    if (delta <= 0) or (delta > 1.0)
+    if (delta < 0) or (delta > 1.0)
       disp( 'lm_prob: you must specify 0 < delta <= 1.0');
       return;
     end
@@ -47,27 +47,27 @@ function logProb = lm_prob(sentence, LM, type, delta, vocabSize)
   words = strsplit(' ', sentence);
 
   % TODO: the student implements the following
-  ps = 1;
-  count = 0;
-  total = 0; 
-  for w=1:length(words)-1
-      w1 = words{w};
-      w2 = words{w+1};
-      if isfield(LM.bi, (w1))
-        total = LM.uni.(w1) + delta * vocabSize;
-        if isfield(LM.bi.(w1), (w2))
-            count = LM.bi.(w1).(w2) + delta;
-        else
-            count = delta;
-        end
-      else
-          total = delta * vocabSize;
-          count = delta;
-      end
-      ps = ps * (count/total);
-  end
-  if ps > 0
-      logProb = log2(ps);
+  for w=2:length(words)
+    w1 = words{w-1};
+    w2 = words{w};
+    total = vocabSize * delta;
+    count = delta;
+    if isfield(LM.uni, w1)
+      total = total + LM.uni.(w1);
+    end
+    if isfield(LM.bi,w1) && isfield(LM.bi.(w1), w2)
+      count = count + LM.bi.(w1).(w2);
+    end
+    % return -inf if count is 0
+    if count == 0 || total==0
+      logProb = -Inf;
+      return
+    end
+    if logProb == -Inf
+      logProb = log2(count/total);
+    else
+      logProb = logProb + log2(count/total);
+    end
   end
   % TODO: once upon a time there was a curmudgeonly orangutan named Jub-Jub.
 return

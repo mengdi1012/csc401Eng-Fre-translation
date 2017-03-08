@@ -18,8 +18,12 @@ function parts = strsplit(splitstr, str, option)
 %   URL:         http://home.online.no/~pjacklam
 
    nargsin = nargin;
-   warning('off','all');
-   error(nargchk(2, 3, nargsin));
+   %warning('off','all');
+   %error(nargchkin(2, 3, nargsin));
+   if nargsin < 2 || nargsin > 3
+      error('nargsin must be 2 or 3')
+   end
+
    if nargsin < 3
       option = 'omit';
    else
