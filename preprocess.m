@@ -31,20 +31,23 @@ function outSentence = preprocess(inSentence, language )
   % perform language-agnostic changes
   % TODO: your code here
   %    e.g., outSentence = regexprep( outSentence, 'TODO', 'TODO');
-  outSentence = regexprep(outSentence, '(\w|\d)\. SENTEND', '$1 \. SENTEND');
-  outSentence = regexprep(outSentence,'([,;!\?\$:\(\)=\+<>"])',' $1 ');
+  outSentence = regexprep(outSentence, '(\w|\d)([^\w\d]+) SENTEND', '$1 $2 SENTEND');
+  outSentence = regexprep(outSentence,'([;!:=<>"#@%\?\*\$\^\+\(\)\[\]\{\}])',' $1 ');
+  outSentence = regexprep(outSentence,'([^0-9]),','$1 , ');  % do not break such as 111,000
+  outSentence = regexprep(outSentence,'(,([^0-9])',' , $1');
   outSentence = regexprep(outSentence,'(\d)-(\d)','$1 - $2');
   outSentence = regexprep(outSentence,'(\s)(\-)+',' $2 ');
   outSentence = regexprep(outSentence,'(\-)+(\s)',' $1 ');
+  outSentence = regexprep(outSentence,'(''('')+)',' $1 ');  % ``...''
+  outSentence = regexprep(outSentence,'(`(`)+)',' $1 ');  
   outSentence = regexprep(outSentence,'\s''(\w)',' '' $1');
   outSentence = regexprep(outSentence,'(\w)''\s','$1 '' ');
   switch language
    case 'e'
-   outSentence = regexprep(outSentence,'(\w)''(\w)','$1 ''$2');
-   outSentence = regexprep(outSentence,'n ''t',' n''t ');
+     outSentence = regexprep(outSentence,'(\w)''(\w)','$1 ''$2');
+     outSentence = regexprep(outSentence,'n ''t',' n''t ');
    case 'f'
-   outSentence = regexprep(outSentence,' (l|j|qu|t|puisqu|lorsqu)''([aeihyou])',' $1'' $2');
-
+     outSentence = regexprep(outSentence,' (c|n|l|j|qu|t|puisqu|lorsqu)''([aeihyou])',' $1'' $2');
   end
   
   outSentence = regexprep( outSentence, '\s+', ' '); 

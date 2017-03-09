@@ -45,8 +45,9 @@ for iFile=1:length(DD)
   lines = textread([dataDir, filesep, DD(iFile).name], '%s','delimiter','\n');
 
   for l=1:length(lines)
-
-    processedLine =  preprocess(lines{l}, language);
+    processedLine =  preprocess(lines{l}, language);    
+    %disp(lines{l});
+    %disp(processedLine);
     words = strsplit(' ', processedLine );
     % TODO: THE STUDENT IMPLEMENTS THE FOLLOWING
     for w=1:length(words)

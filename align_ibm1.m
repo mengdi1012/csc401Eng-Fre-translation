@@ -98,7 +98,7 @@ function AM = initialize(eng, fre)
 % Initialize alignment model uniformly.
 % Only set non-zero probabilities where word pairs appear in corresponding sentences.
 %
-  AM = {}; % AM.(english_word).(foreign_word)
+  AM = struct(); % AM.(english_word).(foreign_word)
 
   % TODO: your code goes here
   for isent=1:length(eng)

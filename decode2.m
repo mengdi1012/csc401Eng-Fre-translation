@@ -87,6 +87,7 @@ for ifw=1:length(frenchWords)
     if (isfield(AM, VE{iew}) && isfield(LM.uni, VE{iew}) && isfield(AM.(VE{iew}), (frenchWords{ifw})))
       tmpScores(iew) = log2(AM.(VE{iew}).(frenchWords{ifw}))+log2( ...
 	  LM.uni.(VE{iew})) - log2(MX );
+      fw = frenchWords{ifw};
     else
       tmpScores(iew) = -Inf;
     end
@@ -96,7 +97,6 @@ for ifw=1:length(frenchWords)
   scores(:,ifw) = b(1:N);
   englishWords(:,ifw) = VE(ind(1:N));
 end 
-%englishWords
 
 % indices 
 wordInd = ones(1, length(frenchWords));
