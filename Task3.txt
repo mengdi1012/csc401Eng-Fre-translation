@@ -1,0 +1,52 @@
+           English 
+delta=1	       perplexity=131.4064
+delta=0.75     perplexity=115.9670	
+delta=0.5      perplexity= 98.4420
+delta=0.25     perplexity=76.9316
+MLE(no smooth) perplexity=13.2387
+
+
+           French
+delta=1	       perplexity=165.1501
+delta=0.75     perplexity=143.6464
+delta=0.5	   perplexity=119.5177
+delta=0.25     perplexity=90.3994
+MLE(no smooth) perplexity=12.2128
+
+Without a smooth, a sentence with unseen words (uni or bigram), with get 0 probability.
+However, the real probability of this kind of sentences should not be 0.
+We use add-delta method to do the smoothing.
+
+From the lecture, we know that:
+Minimizing	perplexity	≡	maximizing	probability
+
+By setting different delta, we got different perplexity, 
+and if we increase the delta value, the corresponding perplexity is also increased.
+Since by add a delta, it will take some probability from seen words and assign them to unseen words. Usually, sentences have much more seen words than unseen words. Therefore, larger delta leads seen words probabilities lower, it means the perplexity becomes higher.
+
+The following example of sentences show the log-probability changing with delta value.
+
+MLE (delta = 0)
+-59.9377  --- SENTSTART in the real world COMMA_ there is nothing wrong with that PERIOD_ SENTEND
+-Inf  --- SENTSTART this applies to all deputies PERIOD_ SENTEND
+-Inf  --- SENTSTART i do not think it SINGQUOTE_s our goal PERIOD_ SENTEND
+-Inf  --- SENTSTART all those in favor will please say yea PERIOD_ SENTEND
+-68.7725 --- SENTSTART the good news is that canada post is all ears PERIOD_ SENTEND
+
+delta = 0.5
+-79.1274 --- SENTSTART in the real world COMMA_ there is nothing wrong with that PERIOD_ SENTEND
+-62.1228 --- SENTSTART this applies to all deputies PERIOD_ SENTEND
+-65.3603  --- SENTSTART i do not think it SINGQUOTE_s our goal PERIOD_ SENTEND
+-67.1798  --- SENTSTART all those in favor will please say yea PERIOD_ SENTEND
+-94.6604 --- SENTSTART the good news is that canada post is all ears PERIOD_ SENTEND
+
+ delta  = 1.0
+-85.3890  --- SENTSTART in the real world COMMA_ there is nothing wrong with that PERIOD_ SENTEND
+-64.0601  --- SENTSTART this applies to all deputies PERIOD_ SENTEND
+-69.5112  --- SENTSTART i do not think it SINGQUOTE_s our goal PERIOD_ SENTEND
+-72.2208  --- SENTSTART all those in favor will please say yea PERIOD_ SENTEND
+-100.3888 --- SENTSTART the good news is that canada post is all ears PERIOD_ SENTEND
+ 
+To sum up, in MLE, we got a lot of sentences with probability of 0 (-inf in log), which cannot be used in decode process.
+However, if the delta is too large, the probability of each sentence are lower and the final result of perplexity is too large.
+

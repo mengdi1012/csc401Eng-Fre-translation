@@ -31,6 +31,9 @@ for iFile=1: length(DD)
   for l=1:length(lines)
     processedLine = preprocess(lines{l}, language);
     tpp = lm_prob( processedLine, LM, type, delta, vocabSize );
+%     if l<=5 && iFile == 2
+%         fprintf('%.4f prob --- %s\n',tpp,processedLine);
+%     end
     if (tpp > -Inf)   % only consider sentences that have some probability 
       pp = pp + tpp;
       words = strsplit(' ', processedLine);

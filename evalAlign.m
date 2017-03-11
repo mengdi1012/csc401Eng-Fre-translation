@@ -11,7 +11,7 @@ testDir      = '/u/cs401/A2_SMT/data/Hansard/Testing';
 fn_LME       = 'LM_E';
 fn_LMF       = 'LM_F';
 lm_type      = 'smooth';
-delta        = 0.1;
+delta        = 0.5;
 numSentences = 1000;
 fn_AM = strcat('AM_FE',num2str(numSentences));
 
