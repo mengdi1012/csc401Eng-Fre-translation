@@ -73,7 +73,7 @@ AM.(CSC401_A2_DEFNS.SENTEND ) = SE;
 
 MX = 0;
 for iew=1:length(VE)
-  if isfield(LM.uni, VE{iew}),
+  if isfield(LM.uni, VE{iew})
     MX = MX+ LM.uni.( VE{iew} );
   end
 end

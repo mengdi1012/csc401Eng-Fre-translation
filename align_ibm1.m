@@ -77,11 +77,11 @@ function [eng, fre] = read_hansard(mydir, numSentences)
   count = 1;
   for iFile=1:length(DD)
     en_lines = textread([mydir,filesep,DD(iFile).name],'%s','delimiter','\n');
-    frfn = regexprep(DD(iFile).name,'e$','f');
-    fr_lines = textread([mydir,filesep,frfn],'%s','delimiter','\n');
+    fn_fr = regexprep(DD(iFile).name,'e$','f');
+    fr_lines = textread([mydir,filesep,fn_fr],'%s','delimiter','\n');
     for iline=1:length(en_lines)
       eng{count} = strsplit(' ', preprocess(en_lines{iline}, 'e'));
-      fre{count} = strsplit(' ', preprocess(fr_lines{iline}, 'e'));
+      fre{count} = strsplit(' ', preprocess(fr_lines{iline}, 'f'));
       count = count + 1;
       if (count>numSentences)
         return;
@@ -89,9 +89,7 @@ function [eng, fre] = read_hansard(mydir, numSentences)
     end
   end
   % TODO: your code goes here.
-
 end
-
 
 function AM = initialize(eng, fre)
 %
@@ -102,9 +100,14 @@ function AM = initialize(eng, fre)
 
   % TODO: your code goes here
   for isent=1:length(eng)
-    for i=1:length(eng{isent})
-      eword = eng{isent}{i};
-      for j=1:length(fre{isent})
+    for i=1:length(eng{isent})-1        %skip SENTSTART & SENTEND and add NULL
+      if i==1
+          eword = 'NULL';
+      else
+          eword = eng{isent}{i};
+      end
+      
+      for j=2:length(fre{isent}) - 1    %skip SENTSTART & SENTEND
         fword = fre{isent}{j};
         if not (isfield(AM,eword) && isfield(AM.(eword),fword))
             AM.(eword).(fword) = 1;
@@ -121,6 +124,8 @@ function AM = initialize(eng, fre)
         AM.(eword).(f_words{j}) = 1/count;
       end
   end
+  AM.SENTSTART.SENTSTART = 1;
+  AM.SENTEND.SENTEND = 1;
 end
 
 function t = em_step(t, eng, fre)
@@ -131,15 +136,24 @@ function t = em_step(t, eng, fre)
   total = struct();
   for isent=1:length(eng)
     f_words = fre{isent};
-    for i=1:length(f_words)
+    for i=2:length(f_words)-1           %skip SENTSTART & SENTEND and add NULL
       fword = f_words{i};
       denom_c = 0;
       e_words = eng{isent};
-      for j=1:length(e_words)
-        denom_c = denom_c + t.(e_words{j}).(fword);
+      for j=1:length(e_words)-1          %skip SENTSTART & SENTEND and add NULL
+        if j==1
+            eword = 'NULL';
+        else  
+            eword = e_words{j};
+        end
+        denom_c = denom_c + t.(eword).(fword);
       end
-      for j=1:length(e_words)
-        eword = e_words{j};
+      for j=1:length(e_words)-1         %skip SENTSTART & SENTEND and add NULL
+        if j==1
+          eword = 'NULL';
+        else
+          eword = e_words{j};
+        end
         x = t.(eword).(fword)/denom_c;
         if isfield(tcount,eword) && isfield(tcount.(eword),fword)
           tcount.(eword).(fword) = tcount.(eword).(fword) + x;
@@ -156,10 +170,10 @@ function t = em_step(t, eng, fre)
   end
   
   e_words = fieldnames(total);
-  for i=1:length(e_words)
+  for i=1:length(e_words)     
     eword = e_words{i};
     f_words = fieldnames(tcount.(eword));
-    for k=1:length(f_words)
+    for k=1:length(f_words)        
       fword =f_words{k};
       t.(eword).(fword) = tcount.(eword).(fword) / total.(eword);
     end

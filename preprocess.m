@@ -44,9 +44,11 @@ function outSentence = preprocess(inSentence, language )
   outSentence = regexprep(outSentence,'(\w)''\s','$1 '' ');
   switch language
    case 'e'
+     outSentence = regexprep(outSentence,'(\w)-(\w)','$1 - $2');
      outSentence = regexprep(outSentence,'(\w)''(\w)','$1 ''$2');
      outSentence = regexprep(outSentence,'n ''t',' n''t ');
    case 'f'
+     outSentence = regexprep(outSentence,'(\w)-((\w)+)-(\w)','$1 - $2 - $4');
      outSentence = regexprep(outSentence,' (c|n|l|j|qu|t|puisqu|lorsqu)''([aeihyou])',' $1'' $2');
   end
   
