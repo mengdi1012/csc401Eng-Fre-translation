@@ -1,3 +1,4 @@
+function evalALign()
 %
 % evalAlign
 %
@@ -80,6 +81,8 @@ disp(avgbleu);
 
 
 %[status, result] = unix('');
+
+end
 
 function bleu = bleu_score(cand, refs, n)
    n_ref = length(refs);
