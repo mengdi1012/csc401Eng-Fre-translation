@@ -1,0 +1,277 @@
+
+Firstly, I implemented the basic IBM-1 alignment, then I added the NULL word alignment.
+By running evalAlign.m with training on 1k and 5k sentences, I calculate the average of BLEU with n=1,2,3 for IBM-1 alignment model and the model with NULL alignment:
+
+1K sentences
+            avg n=1     avg n=1    avg n=1
+ Basic     [0.4464]    [0.2003]    [0.0542]
+ with NULL [0.4743]    [0.2316]    [0.0717]
+
+5K sentences
+           avg n=1     avg n=2     avg n=3
+Basic     [0.5318]    [0.3182]    [0.1494]
+with NULL [0.5465]    [0.3377]    [0.1765]
+
+Both data with 1k and 5k show that with NULL words alignment have a higher average of BLEU score.
+Therefore, in the following training, I decide to use IBM-1 model with NULL words alignment.
+
+ONLY use two references: Task5.e and Task5.google.e
+
+Trained on 1K sentences.
+sentence  1, bleu_n:1 = 0.4375 bleu_n:2 = 0.2415 bleu_n:3 = 0.0000 
+sentence  2, bleu_n:1 = 0.3750 bleu_n:2 = 0.0000 bleu_n:3 = 0.0000 
+sentence  3, bleu_n:1 = 0.4615 bleu_n:2 = 0.0000 bleu_n:3 = 0.0000 
+sentence  4, bleu_n:1 = 0.3333 bleu_n:2 = 0.1741 bleu_n:3 = 0.0000 
+sentence  5, bleu_n:1 = 0.5731 bleu_n:2 = 0.3955 bleu_n:3 = 0.2520 
+sentence  6, bleu_n:1 = 0.5000 bleu_n:2 = 0.4082 bleu_n:3 = 0.2752 
+sentence  7, bleu_n:1 = 0.3333 bleu_n:2 = 0.0000 bleu_n:3 = 0.0000 
+sentence  8, bleu_n:1 = 0.4777 bleu_n:2 = 0.2616 bleu_n:3 = 0.0000 
+sentence  9, bleu_n:1 = 0.6192 bleu_n:2 = 0.2991 bleu_n:3 = 0.0000 
+sentence 10, bleu_n:1 = 0.3333 bleu_n:2 = 0.0000 bleu_n:3 = 0.0000 
+sentence 11, bleu_n:1 = 0.6923 bleu_n:2 = 0.4160 bleu_n:3 = 0.2506 
+sentence 12, bleu_n:1 = 0.4615 bleu_n:2 = 0.1961 bleu_n:3 = 0.0000 
+sentence 13, bleu_n:1 = 0.1797 bleu_n:2 = 0.0000 bleu_n:3 = 0.0000 
+sentence 14, bleu_n:1 = 0.6667 bleu_n:2 = 0.4364 bleu_n:3 = 0.3083 
+sentence 15, bleu_n:1 = 0.5056 bleu_n:2 = 0.2651 bleu_n:3 = 0.0000 
+sentence 16, bleu_n:1 = 0.4545 bleu_n:2 = 0.2132 bleu_n:3 = 0.0000 
+sentence 17, bleu_n:1 = 0.5556 bleu_n:2 = 0.3727 bleu_n:3 = 0.0000 
+sentence 18, bleu_n:1 = 0.6667 bleu_n:2 = 0.5239 bleu_n:3 = 0.4410 
+sentence 19, bleu_n:1 = 0.4296 bleu_n:2 = 0.2054 bleu_n:3 = 0.0000 
+sentence 20, bleu_n:1 = 0.3559 bleu_n:2 = 0.0000 bleu_n:3 = 0.0000 
+sentence 21, bleu_n:1 = 0.4954 bleu_n:2 = 0.2675 bleu_n:3 = 0.0000 
+sentence 22, bleu_n:1 = 0.4868 bleu_n:2 = 0.3291 bleu_n:3 = 0.0000 
+sentence 23, bleu_n:1 = 0.6429 bleu_n:2 = 0.3145 bleu_n:3 = 0.0000 
+sentence 24, bleu_n:1 = 0.5698 bleu_n:2 = 0.4689 bleu_n:3 = 0.2645 
+sentence 25, bleu_n:1 = 0.2500 bleu_n:2 = 0.0000 bleu_n:3 = 0.0000 
+avg BLEU:  [0.4743]    [0.2316]    [0.0717]
+
+Trained on 10K sentences.
+sentence  1, bleu_n:1 = 0.5294 bleu_n:2 = 0.2572 bleu_n:3 = 0.0000 
+sentence  2, bleu_n:1 = 0.4444 bleu_n:2 = 0.0000 bleu_n:3 = 0.0000 
+sentence  3, bleu_n:1 = 0.6154 bleu_n:2 = 0.2265 bleu_n:3 = 0.0000 
+sentence  4, bleu_n:1 = 0.5000 bleu_n:2 = 0.2774 bleu_n:3 = 0.0000 
+sentence  5, bleu_n:1 = 0.7500 bleu_n:2 = 0.4523 bleu_n:3 = 0.0000 
+sentence  6, bleu_n:1 = 0.5000 bleu_n:2 = 0.4082 bleu_n:3 = 0.2752 
+sentence  7, bleu_n:1 = 0.5385 bleu_n:2 = 0.2118 bleu_n:3 = 0.0000 
+sentence  8, bleu_n:1 = 0.6250 bleu_n:2 = 0.5175 bleu_n:3 = 0.4470 
+sentence  9, bleu_n:1 = 0.6192 bleu_n:2 = 0.2991 bleu_n:3 = 0.0000 
+sentence 10, bleu_n:1 = 0.4000 bleu_n:2 = 0.3651 bleu_n:3 = 0.3218 
+sentence 11, bleu_n:1 = 0.5385 bleu_n:2 = 0.3669 bleu_n:3 = 0.2304 
+sentence 12, bleu_n:1 = 0.4286 bleu_n:2 = 0.1816 bleu_n:3 = 0.0000 
+sentence 13, bleu_n:1 = 0.3033 bleu_n:2 = 0.0000 bleu_n:3 = 0.0000 
+sentence 14, bleu_n:1 = 0.6667 bleu_n:2 = 0.3961 bleu_n:3 = 0.2697 
+sentence 15, bleu_n:1 = 0.5936 bleu_n:2 = 0.4119 bleu_n:3 = 0.2365 
+sentence 16, bleu_n:1 = 0.5833 bleu_n:2 = 0.4606 bleu_n:3 = 0.3488 
+sentence 17, bleu_n:1 = 0.5556 bleu_n:2 = 0.3727 bleu_n:3 = 0.0000 
+sentence 18, bleu_n:1 = 0.7222 bleu_n:2 = 0.5453 bleu_n:3 = 0.4530 
+sentence 19, bleu_n:1 = 0.3619 bleu_n:2 = 0.1908 bleu_n:3 = 0.0000 
+sentence 20, bleu_n:1 = 0.5429 bleu_n:2 = 0.4047 bleu_n:3 = 0.3333 
+sentence 21, bleu_n:1 = 0.6250 bleu_n:2 = 0.5175 bleu_n:3 = 0.4470 
+sentence 22, bleu_n:1 = 0.7000 bleu_n:2 = 0.6236 bleu_n:3 = 0.5264 
+sentence 23, bleu_n:1 = 0.7143 bleu_n:2 = 0.4688 bleu_n:3 = 0.2636 
+sentence 24, bleu_n:1 = 0.6000 bleu_n:2 = 0.4629 bleu_n:3 = 0.3206 
+sentence 25, bleu_n:1 = 0.2500 bleu_n:2 = 0.0000 bleu_n:3 = 0.0000 
+avg BLEU:  [0.5483]    [0.3367]    [0.1789]
+
+
+Trained on 15K sentences.
+sentence  1, bleu_n:1 = 0.5882 bleu_n:2 = 0.2712 bleu_n:3 = 0.0000 
+sentence  2, bleu_n:1 = 0.4444 bleu_n:2 = 0.0000 bleu_n:3 = 0.0000 
+sentence  3, bleu_n:1 = 0.5385 bleu_n:2 = 0.2118 bleu_n:3 = 0.0000 
+sentence  4, bleu_n:1 = 0.5000 bleu_n:2 = 0.2774 bleu_n:3 = 0.0000 
+sentence  5, bleu_n:1 = 0.7500 bleu_n:2 = 0.4523 bleu_n:3 = 0.0000 
+sentence  6, bleu_n:1 = 0.6000 bleu_n:2 = 0.4472 bleu_n:3 = 0.2924 
+sentence  7, bleu_n:1 = 0.5385 bleu_n:2 = 0.2118 bleu_n:3 = 0.0000 
+sentence  8, bleu_n:1 = 0.6250 bleu_n:2 = 0.5175 bleu_n:3 = 0.4470 
+sentence  9, bleu_n:1 = 0.6250 bleu_n:2 = 0.2988 bleu_n:3 = 0.0000 
+sentence 10, bleu_n:1 = 0.4000 bleu_n:2 = 0.3651 bleu_n:3 = 0.3218 
+sentence 11, bleu_n:1 = 0.6154 bleu_n:2 = 0.3922 bleu_n:3 = 0.2409 
+sentence 12, bleu_n:1 = 0.4286 bleu_n:2 = 0.1816 bleu_n:3 = 0.0000 
+sentence 13, bleu_n:1 = 0.3033 bleu_n:2 = 0.0000 bleu_n:3 = 0.0000 
+sentence 14, bleu_n:1 = 0.6667 bleu_n:2 = 0.3961 bleu_n:3 = 0.2697 
+sentence 15, bleu_n:1 = 0.6595 bleu_n:2 = 0.4854 bleu_n:3 = 0.2638 
+sentence 16, bleu_n:1 = 0.5833 bleu_n:2 = 0.4606 bleu_n:3 = 0.3488 
+sentence 17, bleu_n:1 = 0.5000 bleu_n:2 = 0.3333 bleu_n:3 = 0.0000 
+sentence 18, bleu_n:1 = 0.7222 bleu_n:2 = 0.5830 bleu_n:3 = 0.5032 
+sentence 19, bleu_n:1 = 0.4524 bleu_n:2 = 0.3016 bleu_n:3 = 0.0000 
+sentence 20, bleu_n:1 = 0.5429 bleu_n:2 = 0.4047 bleu_n:3 = 0.3333 
+sentence 21, bleu_n:1 = 0.6250 bleu_n:2 = 0.5175 bleu_n:3 = 0.4470 
+sentence 22, bleu_n:1 = 0.7000 bleu_n:2 = 0.6236 bleu_n:3 = 0.5264 
+sentence 23, bleu_n:1 = 0.7143 bleu_n:2 = 0.4688 bleu_n:3 = 0.2636 
+sentence 24, bleu_n:1 = 0.6000 bleu_n:2 = 0.4629 bleu_n:3 = 0.3206 
+sentence 25, bleu_n:1 = 0.2500 bleu_n:2 = 0.0000 bleu_n:3 = 0.0000 
+avg BLEU:  [0.5589]    [0.3466]    [0.1831]
+
+Trained on 30K sentences.
+sentence  1, bleu_n:1 = 0.5882 bleu_n:2 = 0.2712 bleu_n:3 = 0.0000 
+sentence  2, bleu_n:1 = 0.4444 bleu_n:2 = 0.0000 bleu_n:3 = 0.0000 
+sentence  3, bleu_n:1 = 0.5385 bleu_n:2 = 0.2118 bleu_n:3 = 0.0000 
+sentence  4, bleu_n:1 = 0.5000 bleu_n:2 = 0.2774 bleu_n:3 = 0.0000 
+sentence  5, bleu_n:1 = 0.6667 bleu_n:2 = 0.4264 bleu_n:3 = 0.0000 
+sentence  6, bleu_n:1 = 0.6000 bleu_n:2 = 0.4472 bleu_n:3 = 0.2924 
+sentence  7, bleu_n:1 = 0.5385 bleu_n:2 = 0.2118 bleu_n:3 = 0.0000 
+sentence  8, bleu_n:1 = 0.7500 bleu_n:2 = 0.7319 bleu_n:3 = 0.7095 
+sentence  9, bleu_n:1 = 0.6250 bleu_n:2 = 0.2988 bleu_n:3 = 0.0000 
+sentence 10, bleu_n:1 = 0.4000 bleu_n:2 = 0.3651 bleu_n:3 = 0.3218 
+sentence 11, bleu_n:1 = 0.6154 bleu_n:2 = 0.3922 bleu_n:3 = 0.2409 
+sentence 12, bleu_n:1 = 0.4286 bleu_n:2 = 0.1816 bleu_n:3 = 0.0000 
+sentence 13, bleu_n:1 = 0.4412 bleu_n:2 = 0.0000 bleu_n:3 = 0.0000 
+sentence 14, bleu_n:1 = 0.7222 bleu_n:2 = 0.4609 bleu_n:3 = 0.2983 
+sentence 15, bleu_n:1 = 0.6595 bleu_n:2 = 0.4854 bleu_n:3 = 0.2638 
+sentence 16, bleu_n:1 = 0.5833 bleu_n:2 = 0.4606 bleu_n:3 = 0.3488 
+sentence 17, bleu_n:1 = 0.6000 bleu_n:2 = 0.4472 bleu_n:3 = 0.2924 
+sentence 18, bleu_n:1 = 0.8333 bleu_n:2 = 0.7001 bleu_n:3 = 0.6509 
+sentence 19, bleu_n:1 = 0.4545 bleu_n:2 = 0.3015 bleu_n:3 = 0.0000 
+sentence 20, bleu_n:1 = 0.5429 bleu_n:2 = 0.4047 bleu_n:3 = 0.3333 
+sentence 21, bleu_n:1 = 0.6250 bleu_n:2 = 0.5175 bleu_n:3 = 0.4470 
+sentence 22, bleu_n:1 = 0.7000 bleu_n:2 = 0.6236 bleu_n:3 = 0.5264 
+sentence 23, bleu_n:1 = 0.7143 bleu_n:2 = 0.4688 bleu_n:3 = 0.2636 
+sentence 24, bleu_n:1 = 0.6000 bleu_n:2 = 0.4629 bleu_n:3 = 0.2545 
+sentence 25, bleu_n:1 = 0.2500 bleu_n:2 = 0.0000 bleu_n:3 = 0.0000 
+avg BLEU:  [0.5769]    [0.3659]    [0.2097]
+
+By observing the results, we can see if we increase the size of training data, it will increase almost all the BLEU score with n = {1,2,3} for each sentence and it will increase definitely the average of the BLEU score.
+The larger size of traning data leads the better translation result.
+
+
+
+
+
+The following two examples show importance of word order. The former translation has good result for both words and their order. All BLEU scores are high.  The latter has only good words translation but without good word order. Only the BLEU score with n=1 (unigram) is high, but others are low. 
+
+SENTSTART nous vivons dans une democratie PERIOD_ SENTEND
+Translation: NULL we live in a democracy PERIOD_ NULL
+Ref1: We live in a democracy.
+Ref2: We live in a democracy.
+sentence  8, bleu_n:1 = 0.7500 bleu_n:2 = 0.7319 bleu_n:3 = 0.7095 
+
+
+SENTSTART cSINGQUOTE_ est le comble du ridicule SENTEND
+Translation: NULL is is the requires of ridiculous NULL
+Ref1: I cannot imagine anything so ridiculous.
+Ref2: It is the height of ridicule
+sentence  9, bleu_n:1 = 0.6250 bleu_n:2 = 0.2988 bleu_n:3 = 0.0000
+
+
+
+After adding the Bleumix as reference 3, we get the following BLEU score:
+
+Trained on 1K sentences.
+sentence  1, bleu_n:1 = 0.4375 bleu_n:2 = 0.2415 bleu_n:3 = 0.0000 
+sentence  2, bleu_n:1 = 0.5000 bleu_n:2 = 0.2673 bleu_n:3 = 0.0000 
+sentence  3, bleu_n:1 = 0.4615 bleu_n:2 = 0.0000 bleu_n:3 = 0.0000 
+sentence  4, bleu_n:1 = 0.5000 bleu_n:2 = 0.3015 bleu_n:3 = 0.0000 
+sentence  5, bleu_n:1 = 0.5731 bleu_n:2 = 0.3955 bleu_n:3 = 0.2520 
+sentence  6, bleu_n:1 = 0.5000 bleu_n:2 = 0.4082 bleu_n:3 = 0.2752 
+sentence  7, bleu_n:1 = 0.4167 bleu_n:2 = 0.1946 bleu_n:3 = 0.0000 
+sentence  8, bleu_n:1 = 0.4777 bleu_n:2 = 0.2616 bleu_n:3 = 0.0000 
+sentence  9, bleu_n:1 = 0.6192 bleu_n:2 = 0.4230 bleu_n:3 = 0.0000 
+sentence 10, bleu_n:1 = 0.2983 bleu_n:2 = 0.0000 bleu_n:3 = 0.0000 
+sentence 11, bleu_n:1 = 0.6923 bleu_n:2 = 0.4160 bleu_n:3 = 0.2506 
+sentence 12, bleu_n:1 = 0.4615 bleu_n:2 = 0.1961 bleu_n:3 = 0.0000 
+sentence 13, bleu_n:1 = 0.1797 bleu_n:2 = 0.0000 bleu_n:3 = 0.0000 
+sentence 14, bleu_n:1 = 0.6237 bleu_n:2 = 0.4083 bleu_n:3 = 0.2884 
+sentence 15, bleu_n:1 = 0.6064 bleu_n:2 = 0.3180 bleu_n:3 = 0.0000 
+sentence 16, bleu_n:1 = 0.4545 bleu_n:2 = 0.2132 bleu_n:3 = 0.0000 
+sentence 17, bleu_n:1 = 0.4971 bleu_n:2 = 0.3335 bleu_n:3 = 0.0000 
+sentence 18, bleu_n:1 = 0.6667 bleu_n:2 = 0.5239 bleu_n:3 = 0.4410 
+sentence 19, bleu_n:1 = 0.5155 bleu_n:2 = 0.2250 bleu_n:3 = 0.0000 
+sentence 20, bleu_n:1 = 0.4444 bleu_n:2 = 0.0000 bleu_n:3 = 0.0000 
+sentence 21, bleu_n:1 = 0.4954 bleu_n:2 = 0.2675 bleu_n:3 = 0.0000 
+sentence 22, bleu_n:1 = 0.4868 bleu_n:2 = 0.3291 bleu_n:3 = 0.0000 
+sentence 23, bleu_n:1 = 0.6429 bleu_n:2 = 0.3145 bleu_n:3 = 0.0000 
+sentence 24, bleu_n:1 = 0.5698 bleu_n:2 = 0.4689 bleu_n:3 = 0.2645 
+sentence 25, bleu_n:1 = 0.2500 bleu_n:2 = 0.0000 bleu_n:3 = 0.0000 
+avg BLEU:   [0.4948]    [0.2603]    [0.0709]
+
+
+Trained on 10K sentences.
+sentence  1, bleu_n:1 = 0.5294 bleu_n:2 = 0.2572 bleu_n:3 = 0.0000 
+sentence  2, bleu_n:1 = 0.5556 bleu_n:2 = 0.2635 bleu_n:3 = 0.0000 
+sentence  3, bleu_n:1 = 0.6154 bleu_n:2 = 0.2265 bleu_n:3 = 0.0000 
+sentence  4, bleu_n:1 = 0.6429 bleu_n:2 = 0.5447 bleu_n:3 = 0.4202 
+sentence  5, bleu_n:1 = 0.7500 bleu_n:2 = 0.4523 bleu_n:3 = 0.0000 
+sentence  6, bleu_n:1 = 0.6000 bleu_n:2 = 0.4472 bleu_n:3 = 0.2924 
+sentence  7, bleu_n:1 = 0.6154 bleu_n:2 = 0.3203 bleu_n:3 = 0.2105 
+sentence  8, bleu_n:1 = 0.6250 bleu_n:2 = 0.5175 bleu_n:3 = 0.4470 
+sentence  9, bleu_n:1 = 0.6192 bleu_n:2 = 0.4230 bleu_n:3 = 0.0000 
+sentence 10, bleu_n:1 = 0.4000 bleu_n:2 = 0.3651 bleu_n:3 = 0.3218 
+sentence 11, bleu_n:1 = 0.5385 bleu_n:2 = 0.3669 bleu_n:3 = 0.2304 
+sentence 12, bleu_n:1 = 0.5000 bleu_n:2 = 0.1961 bleu_n:3 = 0.0000 
+sentence 13, bleu_n:1 = 0.3033 bleu_n:2 = 0.0000 bleu_n:3 = 0.0000 
+sentence 14, bleu_n:1 = 0.7222 bleu_n:2 = 0.4122 bleu_n:3 = 0.2769 
+sentence 15, bleu_n:1 = 0.6923 bleu_n:2 = 0.4804 bleu_n:3 = 0.2758 
+sentence 16, bleu_n:1 = 0.5833 bleu_n:2 = 0.4606 bleu_n:3 = 0.3488 
+sentence 17, bleu_n:1 = 0.4971 bleu_n:2 = 0.3335 bleu_n:3 = 0.0000 
+sentence 18, bleu_n:1 = 0.7222 bleu_n:2 = 0.5453 bleu_n:3 = 0.4530 
+sentence 19, bleu_n:1 = 0.6334 bleu_n:2 = 0.4371 bleu_n:3 = 0.3509 
+sentence 20, bleu_n:1 = 0.5429 bleu_n:2 = 0.4047 bleu_n:3 = 0.3333 
+sentence 21, bleu_n:1 = 0.7500 bleu_n:2 = 0.7319 bleu_n:3 = 0.7095 
+sentence 22, bleu_n:1 = 0.7000 bleu_n:2 = 0.6236 bleu_n:3 = 0.5264 
+sentence 23, bleu_n:1 = 0.7143 bleu_n:2 = 0.4688 bleu_n:3 = 0.2636 
+sentence 24, bleu_n:1 = 0.6000 bleu_n:2 = 0.4629 bleu_n:3 = 0.3206 
+sentence 25, bleu_n:1 = 0.3750 bleu_n:2 = 0.2315 bleu_n:3 = 0.0000 
+avg BLEU:   [0.5931]    [0.3989]    [0.2312]
+
+
+Trained on 15K sentences.
+sentence  1, bleu_n:1 = 0.5882 bleu_n:2 = 0.2712 bleu_n:3 = 0.0000 
+sentence  2, bleu_n:1 = 0.5556 bleu_n:2 = 0.2635 bleu_n:3 = 0.0000 
+sentence  3, bleu_n:1 = 0.5385 bleu_n:2 = 0.2118 bleu_n:3 = 0.0000 
+sentence  4, bleu_n:1 = 0.6429 bleu_n:2 = 0.5447 bleu_n:3 = 0.4202 
+sentence  5, bleu_n:1 = 0.7500 bleu_n:2 = 0.4523 bleu_n:3 = 0.0000 
+sentence  6, bleu_n:1 = 0.7000 bleu_n:2 = 0.5578 bleu_n:3 = 0.3388 
+sentence  7, bleu_n:1 = 0.6154 bleu_n:2 = 0.3203 bleu_n:3 = 0.2105 
+sentence  8, bleu_n:1 = 0.6250 bleu_n:2 = 0.5175 bleu_n:3 = 0.4470 
+sentence  9, bleu_n:1 = 0.6250 bleu_n:2 = 0.4226 bleu_n:3 = 0.0000 
+sentence 10, bleu_n:1 = 0.4000 bleu_n:2 = 0.3651 bleu_n:3 = 0.3218 
+sentence 11, bleu_n:1 = 0.6154 bleu_n:2 = 0.3922 bleu_n:3 = 0.2409 
+sentence 12, bleu_n:1 = 0.5000 bleu_n:2 = 0.1961 bleu_n:3 = 0.0000 
+sentence 13, bleu_n:1 = 0.3033 bleu_n:2 = 0.0000 bleu_n:3 = 0.0000 
+sentence 14, bleu_n:1 = 0.7222 bleu_n:2 = 0.4122 bleu_n:3 = 0.2769 
+sentence 15, bleu_n:1 = 0.7692 bleu_n:2 = 0.5661 bleu_n:3 = 0.3077 
+sentence 16, bleu_n:1 = 0.5833 bleu_n:2 = 0.4606 bleu_n:3 = 0.3488 
+sentence 17, bleu_n:1 = 0.5000 bleu_n:2 = 0.3333 bleu_n:3 = 0.0000 
+sentence 18, bleu_n:1 = 0.7222 bleu_n:2 = 0.5830 bleu_n:3 = 0.5032 
+sentence 19, bleu_n:1 = 0.7239 bleu_n:2 = 0.5395 bleu_n:3 = 0.4038 
+sentence 20, bleu_n:1 = 0.5429 bleu_n:2 = 0.4047 bleu_n:3 = 0.3333 
+sentence 21, bleu_n:1 = 0.6250 bleu_n:2 = 0.5175 bleu_n:3 = 0.4470 
+sentence 22, bleu_n:1 = 0.7000 bleu_n:2 = 0.6236 bleu_n:3 = 0.5264 
+sentence 23, bleu_n:1 = 0.7143 bleu_n:2 = 0.4688 bleu_n:3 = 0.2636 
+sentence 24, bleu_n:1 = 0.6000 bleu_n:2 = 0.4629 bleu_n:3 = 0.3206 
+sentence 25, bleu_n:1 = 0.3750 bleu_n:2 = 0.2315 bleu_n:3 = 0.0000 
+avg BLEU:   [0.6015]    [0.4048]    [0.2284]
+
+
+Trained on 30K sentences.
+sentence  1, bleu_n:1 = 0.5882 bleu_n:2 = 0.2712 bleu_n:3 = 0.0000 
+sentence  2, bleu_n:1 = 0.5556 bleu_n:2 = 0.2635 bleu_n:3 = 0.0000 
+sentence  3, bleu_n:1 = 0.5385 bleu_n:2 = 0.2118 bleu_n:3 = 0.0000 
+sentence  4, bleu_n:1 = 0.6429 bleu_n:2 = 0.5447 bleu_n:3 = 0.4202 
+sentence  5, bleu_n:1 = 0.6667 bleu_n:2 = 0.4264 bleu_n:3 = 0.0000 
+sentence  6, bleu_n:1 = 0.7000 bleu_n:2 = 0.4830 bleu_n:3 = 0.3078 
+sentence  7, bleu_n:1 = 0.6154 bleu_n:2 = 0.3203 bleu_n:3 = 0.2105 
+sentence  8, bleu_n:1 = 0.7500 bleu_n:2 = 0.7319 bleu_n:3 = 0.7095 
+sentence  9, bleu_n:1 = 0.6250 bleu_n:2 = 0.4226 bleu_n:3 = 0.0000 
+sentence 10, bleu_n:1 = 0.4000 bleu_n:2 = 0.3651 bleu_n:3 = 0.3218 
+sentence 11, bleu_n:1 = 0.6154 bleu_n:2 = 0.3922 bleu_n:3 = 0.2409 
+sentence 12, bleu_n:1 = 0.5000 bleu_n:2 = 0.1961 bleu_n:3 = 0.0000 
+sentence 13, bleu_n:1 = 0.4412 bleu_n:2 = 0.0000 bleu_n:3 = 0.0000 
+sentence 14, bleu_n:1 = 0.7778 bleu_n:2 = 0.5239 bleu_n:3 = 0.4094 
+sentence 15, bleu_n:1 = 0.7692 bleu_n:2 = 0.5661 bleu_n:3 = 0.3077 
+sentence 16, bleu_n:1 = 0.5833 bleu_n:2 = 0.4606 bleu_n:3 = 0.3488 
+sentence 17, bleu_n:1 = 0.6000 bleu_n:2 = 0.4472 bleu_n:3 = 0.2924 
+sentence 18, bleu_n:1 = 0.8333 bleu_n:2 = 0.7001 bleu_n:3 = 0.6509 
+sentence 19, bleu_n:1 = 0.7273 bleu_n:2 = 0.5394 bleu_n:3 = 0.4013 
+sentence 20, bleu_n:1 = 0.5429 bleu_n:2 = 0.4047 bleu_n:3 = 0.3333 
+sentence 21, bleu_n:1 = 0.6250 bleu_n:2 = 0.5175 bleu_n:3 = 0.4470 
+sentence 22, bleu_n:1 = 0.7000 bleu_n:2 = 0.6236 bleu_n:3 = 0.5264 
+sentence 23, bleu_n:1 = 0.7143 bleu_n:2 = 0.4688 bleu_n:3 = 0.2636 
+sentence 24, bleu_n:1 = 0.6000 bleu_n:2 = 0.4629 bleu_n:3 = 0.2545 
+sentence 25, bleu_n:1 = 0.3750 bleu_n:2 = 0.2315 bleu_n:3 = 0.0000 
+avg BLEU:   [0.6195]    [0.4230]    [0.2578]
+
+To conclude, use more references (if there are good enough) will produce the higher BLEU score.
+Since more references can give us more chance to recognize the right translations.
+
+

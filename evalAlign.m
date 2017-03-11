@@ -17,26 +17,26 @@ numSentences = 1000;
 fn_AM = strcat('AM_FE',num2str(numSentences));
 
 % Train your language models. This is task 2 which makes use of task 1
-if exist(fn_LME,'file')==0
+% if exist(fn_LME,'file')==0
    LME = lm_train( trainDir, 'e', fn_LME );
-else 
-   load(fn_LME,'-mat','LM');
-   LME = LM;
-end
+% else 
+%    load(fn_LME,'-mat','LM');
+%    LME = LM;
+% end
 
-if exist(fn_LMF,'file')==0
-   LMF = lm_train( trainDir, 'f', fn_LMF );
-else
-   load(fn_LMF,'-mat','LM');
-   LFM = LM;
-end
+% if exist(fn_LMF,'file')==0
+%    LMF = lm_train( trainDir, 'f', fn_LMF );
+% else
+%    load(fn_LMF,'-mat','LM');
+%    LFM = LM;
+% end
 % Train your alignment model of French, given English
-if exist(fn_AM,'file')==0
-   AMFE = align_ibm1( trainDir, numSentences, 10,fn_AM );
-else
-   load(fn_AM, '-mat','AM');
-   AMFE = AM;
-end
+% if exist(fn_AM,'file')==0
+    AMFE = align_ibm1( trainDir, numSentences, 10,fn_AM );
+% else
+%    load(fn_AM, '-mat','AM');
+%    AMFE = AM;
+% end
 % ... TODO: more 
 
 % TODO: a bit more work to grab the English and French sentences. 
@@ -50,7 +50,7 @@ sent_num = length(fre_sents);
 eng_sents = cell(sent_num);
 for i=1:sent_num
     fre = preprocess(fre_sents{i},'f');
-    eng = decode2( fre, LME, AMFE, 'smooth', delta, vocabSize );
+    eng = decode2( fre, LME, AMFE, lm_type, delta, vocabSize );
     eng = regexprep(eng,' NULL( NULL)* ',' ');
     eng_sents{i} = eng;
     disp(fre);
@@ -58,6 +58,8 @@ for i=1:sent_num
 end
 % TODO: perform some analysis
 % add BlueMix code here 
+getBluemix('/u/cs401/A2_SMT/data/Hansard/Testing/Task5.f','Task5.ref3.e');
+ref3 = textread( 'Task5.ref3.e', '%s','delimiter','\n');
 ref1 = textread([testDir, filesep, 'Task5.e'], '%s','delimiter','\n');
 ref2 = textread([testDir, filesep, 'Task5.google.e'], '%s','delimiter','\n');
 avgbleu = cell(1,3);
@@ -68,10 +70,11 @@ avgbleu{3} = 0;
 for i=1:sent_num
     r1 = strsplit(' ',preprocess(ref1{i},'e'));
     r2 = strsplit(' ',preprocess(ref2{i},'e'));
+    r3 = strsplit(' ',preprocess(ref3{i},'e'));
     cand = strsplit(' ',eng_sents{i});
     fprintf('sentence %2d, ',i);
     for n = 1:3
-        bleu = bleu_score(cand, {r1, r2}, n);
+        bleu = bleu_score(cand, {r1, r2,r3}, n);
         fprintf('bleu_n:%d = %.4f ',n,bleu);  
         avgbleu{n} = avgbleu{n} + (bleu/sent_num);
     end 
